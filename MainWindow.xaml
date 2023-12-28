@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF_MVVM_Tests"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
     <Grid>
-
+        <StackPanel Margin="10">
+            <Label Content="First Name:" />
+            <TextBox Text="{Binding Model.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Last Name:" />
+            <TextBox Text="{Binding Model.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Full Name:" />
+            <TextBlock Text="{Binding Model.FullName}" />
+            <Button Content="Save Product"
+                    DockPanel.Dock="Right"
+                    Margin="10,2"
+                    VerticalAlignment="Center"
+                    Command="{Binding Path=SaveCommand}"
+                    Width="100" />
+        </StackPanel>
     </Grid>
 </Window>
