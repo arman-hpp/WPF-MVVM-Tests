@@ -42,7 +42,7 @@ namespace WPF_MVVM_Tests.ViewModels
     //    }
     //}
 
-    public sealed class PersonViewModel
+    public sealed class PersonViewModel : BaseViewModel
     {
         public ObservableObject<Person> Person { get; set; }
 

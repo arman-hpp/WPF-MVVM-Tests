@@ -3,7 +3,7 @@ using WPF_MVVM_Tests.Models;
 
 namespace WPF_MVVM_Tests.ViewModels
 {
-    public sealed class PeopleViewModel 
+    public sealed class PeopleViewModel : BaseViewModel
     {
         public ObservableCollection<Person> Persons { get; set; }
 
