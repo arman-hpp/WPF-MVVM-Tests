@@ -1,8 +1,10 @@
-﻿<Window x:Class="WPF_MVVM_Tests.Views.MainView"
+﻿<Window x:Class="WPF_MVVM_Tests.Views.PersonView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:WPF_MVVM_Tests.ViewModels"
+        d:DataContext="{d:DesignInstance viewModels:PersonViewModel, IsDesignTimeCreatable=False}"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
@@ -10,11 +12,11 @@
     <Grid>
         <StackPanel Margin="10">
             <Label Content="First Name:" />
-            <TextBox Text="{Binding Model.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Person.Properties.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Last Name:" />
-            <TextBox Text="{Binding Model.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Person.Properties.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Full Name:" />
-            <TextBlock Text="{Binding Model.FullName}" />
+            <TextBlock Text="{Binding Person.Properties.FullName}" />
             <Button Content="Save Product"
                     DockPanel.Dock="Right"
                     Margin="10,2"

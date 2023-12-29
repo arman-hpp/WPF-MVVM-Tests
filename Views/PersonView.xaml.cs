@@ -3,9 +3,9 @@ using WPF_MVVM_Tests.ViewModels;
 
 namespace WPF_MVVM_Tests.Views
 {
-    public partial class MainView
+    public partial class PersonView
     {
-        public MainView()
+        public PersonView()
         {
             InitializeComponent();
             DataContext = Ioc.Default.GetRequiredService<PersonViewModel>();

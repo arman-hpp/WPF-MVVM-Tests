@@ -19,6 +19,7 @@ namespace WPF_MVVM_Tests
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
                     .AddSingleton<PersonViewModel>()
+                    .AddSingleton<PeopleViewModel>()
                     .BuildServiceProvider());
         }
     }

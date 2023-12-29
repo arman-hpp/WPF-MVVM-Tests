@@ -44,4 +44,45 @@ namespace WPF_MVVM_Tests.ViewModels
         {
         }
     }
+
+    public class ObservableObject<TProperties> : ObservableRecipient
+        where TProperties : BaseEntity, new()
+    {
+        private TProperties _properties;
+
+        public ObservableObject()
+        {
+            _properties = new TProperties();
+        }
+
+        public ObservableObject(TProperties model)
+        {
+            Properties = model;
+        }
+
+        public TProperties Properties
+        {
+            get => _properties;
+            set
+            {
+                if (value == _properties) return;
+
+                if (_properties != null)
+                {
+                    _properties.PropertyChanged -= ObjectPropertyChanged;
+                }
+
+                _properties = value;
+
+                if (_properties != null)
+                {
+                    _properties.PropertyChanged += ObjectPropertyChanged;
+                }
+            }
+        }
+
+        protected virtual void ObjectPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+        }
+    }
 }
