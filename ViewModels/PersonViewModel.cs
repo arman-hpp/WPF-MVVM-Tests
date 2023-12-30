@@ -61,6 +61,11 @@ namespace WPF_MVVM_Tests.ViewModels
 
         private void Save()
         {
+            if (Person.HasErrors)
+            {
+
+            }
+
             var f = Person.Properties.FullName;
         }
     }

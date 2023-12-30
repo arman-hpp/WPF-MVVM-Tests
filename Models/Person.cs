@@ -1,7 +1,10 @@
-﻿namespace WPF_MVVM_Tests.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WPF_MVVM_Tests.Models
 {
     public class Person : BaseEntity
     {
+        [MinLength(5)]
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
