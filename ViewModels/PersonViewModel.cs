@@ -44,13 +44,13 @@ namespace WPF_MVVM_Tests.ViewModels
 
     public sealed class PersonViewModel : BaseViewModel
     {
-        public ObservableObject<Person> Person { get; set; }
+        public ObservableObject<Person> Person { get; init; }
 
         public ICommand SaveCommand { get; init; }
 
         public PersonViewModel()
         {
-            Person = new ObservableObject<Person>();
+            Person = new ObservableObject<Person>(new Person());
             SaveCommand = new RelayCommand(Save, () => true);
         }
 
@@ -61,7 +61,14 @@ namespace WPF_MVVM_Tests.ViewModels
 
         private void Save()
         {
-            if (Person.HasErrors)
+            if (Person.Properties.HasErrors)
+            {
+
+            }
+
+            Person.Properties.Validate();
+
+            if (Person.Properties.HasErrors)
             {
 
             }

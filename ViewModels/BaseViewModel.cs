@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using WPF_MVVM_Tests.Models;
 
 namespace WPF_MVVM_Tests.ViewModels
@@ -93,22 +91,21 @@ namespace WPF_MVVM_Tests.ViewModels
     //    }
     //}
 
-    public class ObservableObject<TProperties> : ObservableValidator
-        where TProperties : BaseEntity, new()
+    public class ObservableObject<TModel> where TModel : BaseEntity, new()
     {
-        private TProperties _properties;
+        private TModel _properties;
 
-        public ObservableObject()
-        {
-            _properties = new TProperties();
-        }
+        //public ObservableObject()
+        //{
+        //    _properties = new TProperties();
+        //}
 
-        public ObservableObject(TProperties model)
+        public ObservableObject(TModel model)
         {
             Properties = model;
         }
 
-        public TProperties Properties
+        public TModel Properties
         {
             get => _properties;
             set
@@ -118,17 +115,22 @@ namespace WPF_MVVM_Tests.ViewModels
                 if (_properties != null)
                 {
                     _properties.PropertyChanged -= ObjectPropertyChanged;
+                    _properties.ErrorsChanged -= ObjectErrorsChanged;
                 }
-
+                
                 _properties = value;
 
                 if (_properties != null)
                 {
                     _properties.PropertyChanged += ObjectPropertyChanged;
+                    _properties.ErrorsChanged += ObjectErrorsChanged;
                 }
-
-                
             }
+        }
+
+        private void ObjectErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+           
         }
 
         protected virtual void ObjectPropertyChanged(object sender, PropertyChangedEventArgs e)
