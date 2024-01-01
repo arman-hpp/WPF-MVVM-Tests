@@ -1,6 +1,4 @@
-﻿using WPF_MVVM_Tests.Models;
-
-namespace WPF_MVVM_Tests.ViewModels
+﻿namespace WPF_MVVM_Tests.ViewModels
 {
     public abstract class BaseViewModel
     {

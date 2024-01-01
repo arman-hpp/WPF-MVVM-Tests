@@ -163,10 +163,4 @@ namespace WPF_MVVM_Tests.Models
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
     }
-
-
-    //public class Test : ObservableValidator
-    //{
-
-    //}
 }

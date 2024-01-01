@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using System.Windows;
 using WPF_MVVM_Tests.ViewModels;
 
 namespace WPF_MVVM_Tests.Views
