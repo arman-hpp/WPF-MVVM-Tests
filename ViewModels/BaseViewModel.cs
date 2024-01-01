@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using WPF_MVVM_Tests.Models;
+﻿using WPF_MVVM_Tests.Models;
 
 namespace WPF_MVVM_Tests.ViewModels
 {
@@ -91,51 +90,63 @@ namespace WPF_MVVM_Tests.ViewModels
     //    }
     //}
 
-    public class ObservableObject<TModel> where TModel : BaseEntity, new()
-    {
-        private TModel _properties;
+    //public class ObservableObject<TModel>(TModel model) where TModel : BaseEntity, new()
+    //{
+    //    //private TModel _properties;
 
-        //public ObservableObject()
-        //{
-        //    _properties = new TProperties();
-        //}
+    //    public TModel Properties { get; set; } = model;
 
-        public ObservableObject(TModel model)
-        {
-            Properties = model;
-        }
+    //    //public TModel Properties
+    //    //{
+    //    //    get => _properties;
+    //    //    set
+    //    //{
+    //    //  if (value.Equals(_properties)) return;
 
-        public TModel Properties
-        {
-            get => _properties;
-            set
-            {
-                if (value == _properties) return;
+    //    //   if (EqualityComparer<object>.Default.Equals(value, _properties)) return;
 
-                if (_properties != null)
-                {
-                    _properties.PropertyChanged -= ObjectPropertyChanged;
-                    _properties.ErrorsChanged -= ObjectErrorsChanged;
-                }
-                
-                _properties = value;
+    //    //if (_properties != null)
+    //    //{
+    //    //    _properties.PropertyChanged -= ObjectPropertyChanged;
+    //    //    _properties.ErrorsChanged -= ObjectErrorsChanged;
+    //    //}
 
-                if (_properties != null)
-                {
-                    _properties.PropertyChanged += ObjectPropertyChanged;
-                    _properties.ErrorsChanged += ObjectErrorsChanged;
-                }
-            }
-        }
+    //    //_properties = value;
 
-        private void ObjectErrorsChanged(object sender, DataErrorsChangedEventArgs e)
-        {
-           
-        }
+    //    //if (_properties != null)
+    //    //{
+    //    //    _properties.PropertyChanged += ObjectPropertyChanged;
+    //    //    _properties.ErrorsChanged += ObjectErrorsChanged;
+    //    //}
+    //    //}
+    //    // }
 
-        protected virtual void ObjectPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
+    //    //private void ObjectErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+    //    //{
 
-        }
-    }
+    //    //}
+
+    //    //protected virtual void ObjectPropertyChanged(object sender, PropertyChangedEventArgs e)
+    //    //{
+
+    //    //}
+    //}
+
+    //public class Test : INotifyPropertyChanged
+    //{
+    //    public event PropertyChangedEventHandler PropertyChanged;
+
+    //    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    }
+
+    //    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    //    {
+    //        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+    //        field = value;
+    //        OnPropertyChanged(propertyName);
+    //        return true;
+    //    }
+    //}
 }

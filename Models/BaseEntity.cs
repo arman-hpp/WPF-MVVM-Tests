@@ -2,12 +2,11 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.ComponentModel;
 using WPF_MVVM_Tests.Helpers;
 
 namespace WPF_MVVM_Tests.Models
 {
-    public abstract class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidate
+    public abstract class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
     {
         private readonly ValidationTemplate _validationTemplate;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -48,36 +47,14 @@ namespace WPF_MVVM_Tests.Models
         {
             _validationTemplate.Validate();
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        //protected virtual void OnPropertyChanged(string propertyName = null)
-        //{
-        //    if (PropertyChanged != null)
-        //    {
-        //        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-        //            PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
-        //    }
-        //}
-
-        //protected virtual void OnErrorsChanged(string propertyName = null)
-        //{
-        //    if (ErrorsChanged != null)
-        //    {
-        //        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-        //            ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName)));
-        //    }
-        //}
-
     }
 
-    public interface IValidate
+    public interface IValidateEntity
     {
         void Validate();
     }
 
-    public sealed class ValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidate
+    public sealed class ValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
     {
         private readonly INotifyPropertyChanged _target;
         private readonly ValidationContext _validationContext;
@@ -188,8 +165,8 @@ namespace WPF_MVVM_Tests.Models
     }
 
 
-    public class Test : ObservableValidator
-    {
+    //public class Test : ObservableValidator
+    //{
 
-    }
+    //}
 }
