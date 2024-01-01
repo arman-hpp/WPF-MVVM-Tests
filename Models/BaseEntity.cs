@@ -2,17 +2,18 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using WPF_MVVM_Tests.Helpers;
 
 namespace WPF_MVVM_Tests.Models
 {
-    public class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidate
+    public abstract class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidate
     {
         private readonly ValidationTemplate _validationTemplate;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public BaseEntity()
+        protected BaseEntity()
         {
             _validationTemplate = new ValidationTemplate(this);
             _validationTemplate.ErrorsChanged += OnErrorsChanged;
@@ -76,7 +77,7 @@ namespace WPF_MVVM_Tests.Models
         void Validate();
     }
 
-    public class ValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidate
+    public sealed class ValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidate
     {
         private readonly INotifyPropertyChanged _target;
         private readonly ValidationContext _validationContext;
@@ -93,10 +94,10 @@ namespace WPF_MVVM_Tests.Models
 
         public void Validate()
         {
-            _validationResults.Clear();
+            ClearErrors();
             Validator.TryValidateObject(_target, _validationContext, _validationResults, true);
-            var hashSet = new HashSet<string>(_validationResults.SelectMany(x => x.MemberNames));
-            foreach (var error in hashSet)
+            var errors = new HashSet<string>(_validationResults.SelectMany(x => x.MemberNames));
+            foreach (var error in errors)
             {
                 RaiseErrorsChanged(error);
             }
@@ -107,23 +108,42 @@ namespace WPF_MVVM_Tests.Models
             if(e.PropertyName == null)
                 return;
             
-            var propertyInfo = _target.GetType().GetProperty(e.PropertyName);
-            if(propertyInfo == null)
+            var propVal = GetPropertyValue(e.PropertyName);
+            if(propVal == null)
                 return;
 
-            if(propertyInfo.CanWrite == false)
-                return;
-
-            var propVal = propertyInfo.GetValue(_target);
-
-            _validationResults.Clear();
+            ClearErrorsForProperty(e.PropertyName);
             var context = new ValidationContext(_target) { MemberName = e.PropertyName };
             Validator.TryValidateProperty(propVal, context, _validationResults);
-            var hashSet = new HashSet<string>(_validationResults.SelectMany(x => x.MemberNames));
-            foreach (var error in hashSet)
+            var errors = new HashSet<string>(_validationResults.SelectMany(x => x.MemberNames));
+            foreach (var error in errors)
             {
                 RaiseErrorsChanged(error);
             }
+        }
+
+        private void ClearErrors()
+        {
+            _validationResults.Clear();
+        }
+
+        private void ClearErrorsForProperty(string propertyName)
+        {
+            _validationResults.RemoveAll(v => v.MemberNames.Contains(propertyName));
+        }
+
+        private object GetPropertyValue(string propertyName)
+        {
+            var propertyInfo = _target.GetType().GetProperty(propertyName);
+            if (propertyInfo == null)
+                return null;
+
+            if (propertyInfo.CanWrite == false)
+                return null;
+
+            var propVal = propertyInfo.GetValue(_target);
+
+            return propVal;
         }
 
         public IEnumerable GetErrors(string propertyName)
@@ -165,5 +185,11 @@ namespace WPF_MVVM_Tests.Models
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
+    }
+
+
+    public class Test : ObservableValidator
+    {
+
     }
 }
