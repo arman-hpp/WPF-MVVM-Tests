@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace WPF_MVVM_Tests.Models
 {
@@ -12,8 +13,11 @@ namespace WPF_MVVM_Tests.Models
         [Required]
         [MinLength(2)]
         [MaxLength(100)]
-        [PasswordValidation]
         public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 
@@ -30,34 +34,25 @@ namespace WPF_MVVM_Tests.Models
 
     }
 
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
-        AllowMultiple = false)]
-    public sealed class PasswordValidationAttribute : ValidationAttribute
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
+    public sealed partial class EmailValidationAttribute : ValidationAttribute
     {
-        public PasswordValidationAttribute()
-            : base(() => "The current value is smaller than the other one")
+        public EmailValidationAttribute()
+            : base(() => "The email is invalid")
         {
         }
-
-        //protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        //{
-        //    if(IsValid(value))
-        //        return ValidationResult.Success;
-
-        //    return new ValidationResult("The current value is smaller than the other one");
-        //}
 
         public override bool IsValid(object value)
         {
             if (value is null)
-            {
                 return false;
-            }
 
-            if (value.Equals("aaa"))
-                return true;
-
-            return false;
+            var regex = EmailRegex();
+            var match = regex.Match(value.ToString() ?? string.Empty);
+            return match.Success;
         }
+
+        [GeneratedRegex(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")]
+        private static partial Regex EmailRegex();
     }
 }

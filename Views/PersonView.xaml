@@ -15,8 +15,11 @@
             <TextBox Text="{Binding Person.Properties.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Last Name:" />
             <TextBox Text="{Binding Person.Properties.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Email:" />
+            <TextBox Text="{Binding Person.Properties.Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
             <Label Content="Full Name:" />
             <TextBlock Text="{Binding Person.Properties.FullName}" />
+
             <Button Content="Save Product"
                     DockPanel.Dock="Right"
                     Margin="10,2"
