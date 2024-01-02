@@ -14,7 +14,7 @@ namespace WPF_MVVM_Tests.ViewModels
             Persons = new ObservableCollection<Person>
             {
                 new("Arman", "Arian"),
-                new("Ali", "Shafiei")
+                new("Ali", "Reza")
             };
 
             SelectedPerson = Persons[1];
