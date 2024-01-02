@@ -31,10 +31,8 @@ namespace WPF_MVVM_Tests.Models
             FirstName = firstName;
             LastName = lastName;
         }
-
     }
 
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
     public sealed partial class EmailValidationAttribute : ValidationAttribute
     {
         public EmailValidationAttribute()
