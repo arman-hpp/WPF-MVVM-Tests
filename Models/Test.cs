@@ -12,14 +12,9 @@ namespace WPF_MVVM_Tests.Models
         public int B { get; set; }
     }
 
-    public sealed class GreaterThanAttribute : ValidationAttribute
+    public sealed class GreaterThanAttribute(string propertyName) : ValidationAttribute
     {
-        public GreaterThanAttribute(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
-
-        public string PropertyName { get; }
+        public string PropertyName { get; } = propertyName;
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -27,7 +22,7 @@ namespace WPF_MVVM_Tests.Models
                 instance = validationContext.ObjectInstance,
                 otherValue = instance.GetType().GetProperty(PropertyName)?.GetValue(instance);
 
-            return ((IComparable)value).CompareTo(otherValue) > 0 
+            return (((IComparable)value)!).CompareTo(otherValue) > 0 
                 ? ValidationResult.Success 
                 : new ValidationResult("The current value is smaller than the other one");
         }
