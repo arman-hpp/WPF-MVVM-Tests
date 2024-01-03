@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -18,20 +13,23 @@ namespace WPF_MVVM_Tests.Views
 
         private void ExtendedTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key is Key.Enter or Key.Down)
             {
-                // Move focus to the next control in the tab order
-                var request = new TraversalRequest(FocusNavigationDirection.Next);
-                var elementWithFocus = Keyboard.FocusedElement as UIElement;
-
-                if (elementWithFocus != null)
-                {
-                    elementWithFocus.MoveFocus(request);
-                }
-
-                // Mark the event as handled to prevent further processing
+                MoveFocus(FocusNavigationDirection.Next);
                 e.Handled = true;
             }
+            else if (e.Key == Key.Up)
+            {
+                MoveFocus(FocusNavigationDirection.Previous);
+                e.Handled = true;
+            }
+        }
+
+        private void MoveFocus(FocusNavigationDirection direction)
+        {
+            var request = new TraversalRequest(direction);
+            if (Keyboard.FocusedElement is UIElement elementWithFocus)
+                elementWithFocus.MoveFocus(request);
         }
     }
 }
