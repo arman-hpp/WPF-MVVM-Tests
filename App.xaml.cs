@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using WPF_MVVM_Tests.Helpers;
+using WPF_MVVM_Tests.Services;
 using WPF_MVVM_Tests.ViewModels;
 
 namespace WPF_MVVM_Tests
@@ -11,11 +12,12 @@ namespace WPF_MVVM_Tests
         public App()
         {
             InitializeComponent();
-            DispatcherHelper.Initialize();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            DispatcherHelper.Initialize();
+
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
                     .AddSingleton<PersonViewModel>()
@@ -25,7 +27,8 @@ namespace WPF_MVVM_Tests
                     .AddSingleton<Page1ViewModel>()
                     .AddSingleton<Page2ViewModel>()
                     .AddSingleton<Page3ViewModel>()
-                    .BuildServiceProvider());
+                    .BuildServiceProvider()
+            );
         }
     }
 }

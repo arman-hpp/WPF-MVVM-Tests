@@ -6,13 +6,13 @@ namespace WPF_MVVM_Tests.ViewModels
 {
     public sealed class PersonViewModel : BaseViewModel
     {
-        public ObservableObject<Person> Person { get; init; }
+        public ObservableEntity<Person> Person { get; init; }
 
         public ICommand SaveCommand { get; init; }
 
         public PersonViewModel()
         {
-            Person = new ObservableObject<Person>(new Person());
+            Person = new ObservableEntity<Person>(new Person());
             SaveCommand = new RelayCommand(Save, () => true);
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WPF_MVVM_Tests.ViewModels
+namespace WPF_MVVM_Tests.Services
 {
     public interface IStepNavigationService
     {

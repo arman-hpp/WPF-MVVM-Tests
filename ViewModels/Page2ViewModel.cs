@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using WPF_MVVM_Tests.Services;
 
 namespace WPF_MVVM_Tests.ViewModels
 {
