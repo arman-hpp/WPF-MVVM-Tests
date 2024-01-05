@@ -20,6 +20,11 @@ namespace WPF_MVVM_Tests
                 new ServiceCollection()
                     .AddSingleton<PersonViewModel>()
                     .AddSingleton<PeopleViewModel>()
+                    .AddSingleton<StepViewModel>()
+                    .AddSingleton<IStepNavigationService, StepNavigationService>()
+                    .AddSingleton<Page1ViewModel>()
+                    .AddSingleton<Page2ViewModel>()
+                    .AddSingleton<Page3ViewModel>()
                     .BuildServiceProvider());
         }
     }
