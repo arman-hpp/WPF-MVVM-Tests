@@ -8,7 +8,7 @@ namespace WPF_MVVM_Tests.Models
 {
     public abstract class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
     {
-        private readonly ValidationTemplate _validationTemplate;
+        private readonly IValidationTemplate _validationTemplate;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,7 +54,12 @@ namespace WPF_MVVM_Tests.Models
         void Validate();
     }
 
-    public sealed class ValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
+    public interface IValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
+    {
+   
+    }
+
+    public sealed class ValidationTemplate : IValidationTemplate
     {
         private readonly INotifyPropertyChanged _target;
         private readonly ValidationContext _validationContext;
