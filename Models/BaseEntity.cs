@@ -6,7 +6,7 @@ using WPF_MVVM_Tests.Helpers;
 
 namespace WPF_MVVM_Tests.Models
 {
-    public abstract class BaseEntity : INotifyPropertyChanged, IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
+    public abstract class BaseEntity : INotifyPropertyChanged, IValidationTemplate
     {
         private readonly IValidationTemplate _validationTemplate;
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -49,14 +49,9 @@ namespace WPF_MVVM_Tests.Models
         }
     }
 
-    public interface IValidateEntity
+    public interface IValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo
     {
         void Validate();
-    }
-
-    public interface IValidationTemplate : IDataErrorInfo, INotifyDataErrorInfo, IValidateEntity
-    {
-   
     }
 
     public sealed class ValidationTemplate : IValidationTemplate
