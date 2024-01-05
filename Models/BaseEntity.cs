@@ -15,10 +15,10 @@ namespace WPF_MVVM_Tests.Models
         protected BaseEntity()
         {
             _validationTemplate = new ValidationTemplate(this);
-            _validationTemplate.ErrorsChanged += OnErrorsChanged;
+            _validationTemplate.ErrorsChanged += OnRaiseError;
         }
 
-        private void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        private void OnRaiseError(object sender, DataErrorsChangedEventArgs e)
         {
             ErrorsChanged?.Invoke(this, e);
         }
